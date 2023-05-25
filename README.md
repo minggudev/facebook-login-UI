@@ -46,4 +46,3 @@ Please note that these security measures are not exhaustive, and additional secu
 This project is licensed under the [MIT License](LICENSE).
 ```
 
-Note: Pastikan untuk menyertakan file `LICENSE` jika Anda ingin menggunakan lisensi MIT atau gantilah dengan lisensi yang sesuai.
