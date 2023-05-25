@@ -1,0 +1,56 @@
+document.getElementById("loginForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+  
+    // Melakukan sanitasi input untuk mencegah serangan XSS
+    email = sanitizeInput(email);
+    password = sanitizeInput(password);
+  
+    // Lakukan verifikasi login atau proses lainnya di sini
+    console.log("Email:", email);
+    console.log("Password:", password);
+    // Contoh aksi lain yang dapat dilakukan:
+    // - Mengirim data ke server
+    // - Memvalidasi input
+    // - Mengarahkan pengguna ke halaman lain, dll.
+  });
+  
+  // Fungsi untuk membersihkan input dari karakter berbahaya
+  function sanitizeInput(input) {
+    // Menghapus tanda tag HTML
+    input = input.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    // Menghapus tanda kutip ganda
+    input = input.replace(/"/g, "&quot;");
+    // Menghapus tanda kutip tunggal
+    input = input.replace(/'/g, "&#x27;");
+    // Menghapus tanda backtick
+    input = input.replace(/`/g, "&#x60;");
+    return input;
+  }
+  
+  // Mencegah inspeksi elemen melalui fitur developer tools
+  function preventInspectElement() {
+    var devTools = function() {};
+    devTools.toString = function() {
+      alert("Tidak diperbolehkan menginspeksi elemen!");
+    };
+  
+    // Menggantikan fungsi console.log dengan devTools
+    window.console.log = devTools;
+    // Menangkap event ketika fitur inspect element dibuka
+    window.addEventListener("devtoolschange", function(event) {
+      if (event.detail.isOpen) {
+        alert("Tidak diperbolehkan menginspeksi elemen!");
+        // Menutup panel elemen yang terbuka secara otomatis
+        setTimeout(function() {
+          window.location.reload();
+        }, 100);
+      }
+    });
+  }
+  
+  // Memanggil fungsi untuk mencegah inspeksi elemen
+  preventInspectElement();
+  
